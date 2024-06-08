@@ -2,7 +2,7 @@ import SearchForm from '@/components/SearchForm'
 import { useRouter } from 'next/router';
 import React from 'react'
 
-export default function searchResults() {
+export default function SearchResults() {
   const router = useRouter();
  console.log(router);
   return (
