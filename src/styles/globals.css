@@ -44,11 +44,11 @@ footer {
     @apply m-auto text-6xl text-gray-900
   }
   input {
-    @apply bg-white border border-gray-300
-    text-gray-900 text-lg rounded-lg focus:ring-slate-500 focus:border-slate-900 block m-auto w-full p-4 px-10 border-solid
+    @apply flex bg-white border border-gray-300 focus:border-gray-400 focus:outline-none justify-center outline-offset-0
+    text-gray-900 text-lg rounded-lg focus:ring-slate-500  m-auto w-full p-4 px-10 border-solid
   }
   .btn-primary {
-    @apply text-white absolute end-2.5 bottom-2.5 bg-slate-900 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-lg px-10 py-2
+    @apply text-white end-2.5 bottom-2.5 bg-slate-900 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-lg px-10 py-2
   }
   .btn-secondary {
     @apply inline-flex items-center h-9 rounded-full text-lg
