@@ -20,7 +20,7 @@ const MenuItems = () => {
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => { setIsOpen(!isOpen); };
-    return (<nav className='w-full'>
+    return (<nav className='w-full flex md:justify-end'>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 mr-10 lg:px-8">
             <div className="relative flex items-center justify-between h-16 w-full mr-0">
                 <div className="absolute inset-y-0 left-full flex items-center sm:hidden mx-0">
