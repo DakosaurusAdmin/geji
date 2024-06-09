@@ -1,6 +1,7 @@
+import { ErrorProps } from 'next/error'
 import Link from 'next/link'
  
-export default function Error({ statusCode }){
+export default function Error({ statusCode }:ErrorProps){
   return (
     <div className='m-auto'>
       <h2 className='text-3xl text-red-600'>Error</h2>
