@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-100 flex overflow-hidden justify-content p-10">
+        <footer className="bg-gray-100 hidden md:flex overflow-hidden justify-content p-10">
             <div className="flex justify-between">
                 <a className="ml-2" href="#">Contact Us</a>
                 <a className="ml-2" href="#">About Us</a>
