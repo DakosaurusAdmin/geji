@@ -13,7 +13,7 @@ const MenuItems = () => {
                 value:"Cart (0)"
             }
         ].map(m =>
-            <Link href={m.path} className="block text-gray-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" >{m.value} </Link>)
+            <Link href={m.path} key={m.value} className="block text-gray-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" >{m.value} </Link>)
     )
 }
 
