@@ -1,11 +1,7 @@
-import Link from 'next/link'
- 
-export default function NotFound() {
+import React from 'react'
+
+export default function DynamicPage() {
   return (
-    <div className='m-auto'>
-      <h2 className='text-3xl'>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link className="btn-secondary" href="/">Return Home</Link>
-    </div>
+    <div className='m-auto text-2xl text-yellow-700'>Page under construction!</div>
   )
 }
