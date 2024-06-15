@@ -16,7 +16,7 @@ export default function Home() {
       </div>
       
       {/* Search Control */}
-      <div className='w-1/2 mx-auto'>
+      <div className='w-full p-4 sm:w-1/2 mx-auto'>
       <SearchForm/>
       </div>
 

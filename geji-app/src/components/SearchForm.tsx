@@ -1,3 +1,5 @@
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router'
 import React, { FormEvent, useState } from 'react'
 
@@ -28,13 +30,15 @@ export default function SearchForm() {
 
       </div>
       {/* -- Search input */}
-      <input type="search" name="query" id="default-search" className='form-input'
+      <input type="search" name="query" id="default-search" className='form-input flex justify-center'
         placeholder="Search items..." autoFocus={true} 
         onChange={e => setQuery(e.target.value)}/>
-      <button type="submit" className="btn-primary absolute top-2 bottom-2 flex p-4 m-auto">        {/* -- Search Icon */}
-        <svg className="w-4 h-4 text-white m-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+      <button type="submit" className="btn btn-primary end-2 absolute top-2 bottom-2 flex px-4 m-auto justify-center">        {/* -- Search Icon */}
+        {/* <svg className="w-4 h-4 text-white m-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-        </svg></button>
+        </svg> */}
+        <FontAwesomeIcon icon={faSearch} className='size-4 m-auto'/>
+      </button>
     </div>
   </form>
   )
