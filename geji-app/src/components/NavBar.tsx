@@ -46,7 +46,7 @@ const ShortCuts = () => {
             icon: faCartShopping
         }].map(s => 
 
-                <Link href={s.path} key={s.name} className="btn btn-ghost btn-circle tooltip tooltip-info tooltip-bottom flex"  data-tip={s.value}>
+                <Link href={s.path} key={s.name} className="btn btn-ghost btn-circle tooltip tooltip-info tooltip-bottom flex"  data-tip={s.name}>
                        <div className="indicator">
                            <FontAwesomeIcon  icon={s.icon} />
                        </div>
