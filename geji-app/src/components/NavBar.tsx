@@ -24,7 +24,7 @@ const NavLinks = () => {
            
         ].map(l => 
            
-            <li><Link href={l.path} key={l.name} className="text-gray-700 m-auto">{l.name}</Link></li>
+            <li key={l.name} ><Link href={l.path} className="text-gray-700 m-auto">{l.name}</Link></li>
             //block text-gray-700
             //  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm 
             //  font-medium

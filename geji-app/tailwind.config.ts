@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import daisyui from 'daisyui'
 
 const colors = require('tailwindcss/colors');
 
@@ -21,8 +22,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [daisyui]
+
+ 
 };
 export default config;

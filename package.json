@@ -9,12 +9,5 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "daisyui": "^4.12.2"
-  },
-  "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@fortawesome/react-fontawesome": "^0.2.2"
-  }
+  "description": ""
 }

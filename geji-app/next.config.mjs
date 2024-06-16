@@ -2,6 +2,7 @@
 const nextConfig = {
     output: "export", // needed to create static bundle for Github pages
     reactStrictMode: true,
+    assetPrefix:'/geji/'
 };
 
 export default nextConfig;
