@@ -57,13 +57,12 @@ const ShortCuts = () => {
     ].map(s =>
 
         <Link href={s.path} key={s.name} className="btn btn-ghost btn-circle tooltip tooltip-info tooltip-bottom flex" data-tip={s.name}>
-            <div className="relative ndicator">
-                <FontAwesomeIcon icon={s.icon}/>
-                {s.alerts &&
-                <div className='badge badge-error badge-sm absolute flex -top-2.5 -right-3.5 justify-center'>
-                    <span className='absolute text-white m-auto inline text-xs'>{s.alerts}</span>
-                </div>
+            <div className="relative indicator">
+            {s.alerts &&
+                <span className="indicator-item badge badge-error badge-xs">{s.alerts}</span> 
                 }
+                <FontAwesomeIcon icon={s.icon}/>
+               
             </div>
         </Link>
 
