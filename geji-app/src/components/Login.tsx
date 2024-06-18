@@ -14,7 +14,7 @@ export default function Login() {
                     e.preventDefault()
                     signIn(p.id)
                 }}>
-                <Image loading="lazy" height="24" width="24" id="provider-logo" src={`https://authjs.dev/img/providers/${p.id}.svg`} alt="Google SignIn" />
+                <Image loading="lazy" height="24" width={24} id="provider-logo" src={`https://authjs.dev/img/providers/${p.id}.svg`} alt="Google SignIn"/>
                 <span>Sign in with Google</span>
             </button>
         )}

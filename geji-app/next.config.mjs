@@ -5,7 +5,15 @@ const nextConfig = {
     assetPrefix: process.env['GITHUB_ACTIONS'] ? '/geji/' : undefined,
 
     images: {
-        unoptimized: process.env['GITHUB_ACTIONS'] ? true : false
+        unoptimized: process.env['GITHUB_ACTIONS'] ? true : false,
+        remotePatterns: [
+            {
+              protocol: 'https',
+              hostname: 'lh3.googleusercontent.com',
+              port: '',
+              pathname: '/**',
+            },
+          ],
       }
 };
 

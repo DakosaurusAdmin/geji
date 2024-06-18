@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <header className='bg-gray-100 shadow-lg flex pr-2'>
       <NavBar />
-      <div className='flex justify-start'>
+      <div className='flex justify-start mr-4'>
       {
         !session &&
         <button  type="button" className='btn btn-primary btn-sm rounded-full'
@@ -36,14 +36,14 @@ export default function Header() {
             <strong>{session.user.name}</strong>
           </span> */}
 
-          <span className='text-xs flex flex-col flex-1 space-y-0 m-auto mx-2 text-center'>
+          <span className='text-xs hidden sm:flex flex-col flex-1 space-y-0 m-auto mx-2 text-center'>
             <small>Welcome!</small>
             <strong>{session.user.name}</strong>
           </span>
           <div className="dropdown">
             <div className="dropdown avatar online placeholder">
               <div tabIndex={0} role="button" className="bg-neutral text-neutral-content rounded-full w-12">
-                <Image src={session.user.image || ''} alt={session.user.name || ''}/>
+                <Image src={session.user.image || ''} alt={session.user.name || ''} width={24} height={24}/>
               </div>
             </div>
 
