@@ -32,7 +32,7 @@ const NavLinks = () => {
     )
 }
 
-const UserLinks = ({session}) => {
+const UserLinks = () => {
     return ([
         {
             path: '/messages',
@@ -96,7 +96,7 @@ export default function NavBar() {
                 </ul>
                 {session && 
                     <ul className="menu menu-horizontal">
-                        <UserLinks session={session} />
+                        <UserLinks />
                     </ul>
                 }
             </div>

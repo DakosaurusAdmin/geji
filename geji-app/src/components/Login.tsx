@@ -3,6 +3,7 @@ import { providerMap } from '@/pages/api/auth/[...nextauth]'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOut } from '@fortawesome/free-solid-svg-icons'
+import Image from 'next/image'
 
 export default function Login() {
     const { data: session } = useSession()
@@ -13,7 +14,7 @@ export default function Login() {
                     e.preventDefault()
                     signIn(p.id)
                 }}>
-                <img loading="lazy" height="24" width="24" id="provider-logo" src={`https://authjs.dev/img/providers/${p.id}.svg`} />
+                <Image loading="lazy" height="24" width="24" id="provider-logo" src={`https://authjs.dev/img/providers/${p.id}.svg`} alt="Google SignIn" />
                 <span>Sign in with Google</span>
             </button>
         )}

@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignIn } from '@fortawesome/free-solid-svg-icons'
 import SignOut from './SignOut'
+import Image from 'next/image'
 
 export default function Header() {
   const { data: session, status } = useSession()
@@ -42,7 +43,7 @@ export default function Header() {
           <div className="dropdown">
             <div className="dropdown avatar online placeholder">
               <div tabIndex={0} role="button" className="bg-neutral text-neutral-content rounded-full w-12">
-                <img src={session.user.image || ''} alt={session.user.name || ''} />
+                <Image src={session.user.image || ''} alt={session.user.name || ''}/>
               </div>
             </div>
 
