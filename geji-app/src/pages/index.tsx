@@ -1,5 +1,4 @@
-import { GoogleLogin } from 'react-google-login';
-import SearchForm from '../components/SearchForm';
+// import SearchForm from '../components/SearchForm';
 import Login from '@/components/Login';
 
 
