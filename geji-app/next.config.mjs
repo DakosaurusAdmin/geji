@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: process.env['github.workspace'] ? "export": undefined, // needed to create static bundle for Github pages
+    output: process.env['GITHUB_ACTIONS'] ? "export": undefined, // needed to create static bundle for Github pages
     reactStrictMode: true,
-    assetPrefix: process.env['github.workspace'] ? '/geji/' : undefined
+    assetPrefix: process.env['GITHUB_ACTIONS'] ? '/geji/' : undefined
 };
 
 export default nextConfig;
