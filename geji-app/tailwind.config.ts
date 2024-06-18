@@ -40,8 +40,11 @@ const config: Config = {
           "base-content": "#1f2937",
           "info": "#3b82f6",
           "info-content": "#f3f4f6",
-          "success": "#84cc16",
-          "success-content": "#060f00",
+          // "success": "#84cc16",'
+          "success":"#0ec95a",
+          
+          //"success-content": "#060f00",
+          "success-content":"#DEDEF0",
           "warning": "#ff9000",
           "warning-content": "#160700",
           "error": "#e10046",

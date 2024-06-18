@@ -1,9 +1,11 @@
-import { faBell, faIdBadge, faUser } from '@fortawesome/free-regular-svg-icons'
-import { faCartShopping, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faEnvelope, faIdBadge, faMessage, faUser } from '@fortawesome/free-regular-svg-icons'
+import { faCartShopping, faCircle, faMailReply } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import React, { ComponentProps } from 'react'
+import {useSession } from 'next-auth/react'
+
 
 
 const NavLinks = () => {
@@ -12,11 +14,6 @@ const NavLinks = () => {
             {
                 path: '/',
                 name: 'Home'
-            },
-            {
-                path: '/login',
-                name: 'Login'
-
             },
             {
                 path: '/contact',
@@ -35,18 +32,19 @@ const NavLinks = () => {
     )
 }
 
-const ShortCuts = () => {
+const UserLinks = ({session}) => {
     return ([
         {
-            path: '/userProfile',
-            name: "user",
-            icon: faUser
+            path: '/messages',
+            name: `messages`,
+            icon: faEnvelope,
+            alerts:109
         },
-        {
-            path: '/cart',
-            name: 'Cart',
-            icon: faCartShopping
-        },
+        // {
+        //     path: '/cart',
+        //     name: 'Cart',
+        //     icon: faCartShopping
+        // },
         {
             path: '/notifications',
             name: 'Notifications',
@@ -55,13 +53,12 @@ const ShortCuts = () => {
         }
 
     ].map(s =>
-
         <Link href={s.path} key={s.name} className="btn btn-ghost btn-circle tooltip tooltip-info tooltip-bottom flex" data-tip={s.name}>
             <div className="relative indicator">
             {s.alerts &&
-                <span className="indicator-item badge badge-error badge-xs">{s.alerts}</span> 
+                <span className="indicator-item badge badge-error rounded-full badge-md text-xs p-1">{s.alerts > 99 ? '99+' : s.alerts}</span> 
                 }
-                <FontAwesomeIcon icon={s.icon}/>
+                <FontAwesomeIcon icon={s.icon} size='2x' fontWeight='400'/>
                
             </div>
         </Link>
@@ -70,6 +67,7 @@ const ShortCuts = () => {
 }
 
 export default function NavBar() {
+    const { data: session, status } = useSession()
     return (
         <div className="navbar">
             <div className="sm:hidden">
@@ -89,9 +87,6 @@ export default function NavBar() {
                         <span className="text-yellow-700">ji</span>
                         <span className="text-green-800">!</span>
                     </div>
-                    {/* <a className="btn-secondary" href="#">
-            Learn more</a> */}
-
 
                 </Link>
             </div>
@@ -99,9 +94,11 @@ export default function NavBar() {
                 <ul className="menu menu-horizontal hidden sm:flex">
                     <NavLinks />
                 </ul>
-                <ul className="menu menu-horizontal">
-                    <ShortCuts />
-                </ul>
+                {session && 
+                    <ul className="menu menu-horizontal">
+                        <UserLinks session={session} />
+                    </ul>
+                }
             </div>
 
         </div>
