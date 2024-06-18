@@ -14,13 +14,13 @@ export default function Header() {
       <div className='flex justify-start'>
       {
         !session &&
-        <button  type="button" className='btn btn-primary rounded-full'
+        <button  type="button" className='btn btn-primary btn-sm rounded-full'
         onClick={(e) => {
           e.preventDefault()
           signIn()
       }}>
       {/* <img loading="lazy" height="24" width="24" id="provider-logo" src={`https://authjs.dev/img/providers/${p.id}.svg`} /> */}
-      <FontAwesomeIcon icon={faSignIn}/>
+      <FontAwesomeIcon icon={faSignIn} size="sm"/>
       <span className="flex-1">Sign in</span>
   </button>}
       {
