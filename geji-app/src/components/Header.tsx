@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignIn } from '@fortawesome/free-solid-svg-icons'
 import SignOut from './SignOut'
 import Image from 'next/image'
+import SignIn from '@/pages/signIn'
 
 export default function Header() {
   const { data: session, status } = useSession()
@@ -51,6 +52,7 @@ export default function Header() {
               <SignOut className="btn btn-sm"/>
             </ul>
           </div>
+
           </>
         
       }

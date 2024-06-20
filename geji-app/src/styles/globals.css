@@ -31,6 +31,15 @@ footer {
   justify-content: space-between;
 }
 
+.signIn hr::before {
+  content:"or";
+  position:absolute;
+  top:-0.75em;
+  margin:auto;
+  color:#616161;
+  font-size: .75em;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -43,10 +52,10 @@ footer {
   h1{
     @apply m-auto text-6xl text-gray-900
   }
-  input {
+  /* input {
     @apply flex bg-white border border-gray-300 focus:border-gray-400 focus:outline-none justify-center outline-offset-0
     text-gray-900 text-lg rounded-lg focus:ring-slate-500  m-auto w-full p-4 px-10 border-solid
-  }
+  } */
   /* .btn-primary {
     @apply text-white bottom-2.5 bg-slate-900 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-lg px-10 py-2
   }
