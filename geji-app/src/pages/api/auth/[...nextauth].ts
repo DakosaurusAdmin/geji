@@ -31,10 +31,11 @@ const providers = [
         name: 'test user',
         email: 'test@test.com',
         image: '/testUserAvatar.png'
+
       }
 
 
-      return user;
+      return credentials?.username === 'test' ? user : null;
     }
   }),
   GoogleProvider({
@@ -51,7 +52,8 @@ const options:AuthOptions = {
     strategy: 'jwt',
    },
    pages:{
-     signIn:'/signIn'
+     signIn:'/signIn',
+     signOut:'/signOut'
    }
 }
 

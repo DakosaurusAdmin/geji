@@ -6,15 +6,12 @@ import Image from "next/image";
 import { login } from "@/lib/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn } from "@fortawesome/free-solid-svg-icons";
-import { Input } from "@headlessui/react";
-import { useRouter } from "next/router";
 
 export default function SignInForm() {
   const { data: session } = useSession();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
 
   const onSubmit = async (
     e: FormEvent<HTMLFormElement>,
@@ -23,13 +20,19 @@ export default function SignInForm() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await login(providerId, new FormData(e.currentTarget));
+      const formData = new FormData(e.currentTarget),
+          response = await login(providerId, 
+            {
+              username: formData.get('username')as string, 
+              password: formData.get('password') as string
+            });
       setError(response.error);
       console.log("login response : ", response);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="card justify-center m-auto signIn">
       {!loading && error && (
@@ -68,7 +71,7 @@ export default function SignInForm() {
                   >
                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                   </svg>
-                  <Input
+                  <input
                     type="text"
                     className="grow"
                     placeholder="Username"
@@ -110,7 +113,7 @@ export default function SignInForm() {
                   width={24}
                   id="provider-logo"
                   src={`https://authjs.dev/img/providers/${p.id}.svg`}
-                  alt="Google SignIn"
+                  alt={`${p.id} SignIn`}
                 />
               )}
 

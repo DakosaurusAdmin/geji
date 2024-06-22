@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
+import { SignInFormV2 } from '@/components/SignInFormV2';
 
 export default function SignIn() {
     const router = useRouter();
@@ -17,7 +18,7 @@ export default function SignIn() {
         if(session) {
             setIsOpen(false);
         }
-    })
+    },[setIsOpen, session])
 
     return (
 
@@ -35,7 +36,7 @@ export default function SignIn() {
                 <h3 className="font-bold text-lg text-center">Sign In!</h3>
 
                 <div className="modal-action">
-                    <SignInForm />
+                    <SignInFormV2 />
                 </div>
 
             </div>

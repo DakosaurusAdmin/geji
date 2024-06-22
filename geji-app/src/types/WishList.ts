@@ -4,7 +4,8 @@ export interface WishListItem {
     url: string,
     price: number,
     quantity: number,
-    neededByDate: Date
+    neededByDate: Date,
+    status: 'pending' | 'delivered' | 'complete'
 }
 
 
