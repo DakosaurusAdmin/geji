@@ -3,15 +3,6 @@
 import * as React from "react"
 import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 // import columns from "@/model/wishlist/columns";
@@ -39,7 +30,7 @@ import { WishListItem } from "@/types/WishList"
 import { getData } from "@/data"
 import DataTable from "@/model/wishlist/DataTable"
 import { useAppDispatch } from "@/lib/hooks"
-import wishlistSlice, { selectWishList } from "@/features/wishlist/wishlistSlice"
+import wishlistSlice, { deleteWishList, selectWishList } from "@/features/wishlist/wishlistSlice"
 import { useSelector } from "react-redux"
 
 const columns: ColumnDef<WishListItem>[] = [
@@ -115,8 +106,12 @@ export default function DashBoard() {
 
     fetchData();
   }, [dispatch]);
+  
+  const onDelete = (id:string) => {
+    dispatch(deleteWishList({id}));
+  }
 
   return (
-    <DataTable data={data} />
+    <DataTable data={data} onDelete= {onDelete} />
   )
 }

@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
+  RowData,
   SortingState,
   VisibilityState,
   flexRender,
@@ -36,6 +37,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { WishListItem } from "@/types/WishList";
+
+declare module '@tanstack/table-core' {
+  interface TableMeta<TData extends RowData> {
+    removeItem: any;
+  }
+}
 
 const columns: ColumnDef<WishListItem>[] = [
   {
@@ -114,7 +121,9 @@ const columns: ColumnDef<WishListItem>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row, table, column }) => {
+    cell: ({ row,table }) => {
+      const wishList = row.original;
+      
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -126,12 +135,12 @@ const columns: ColumnDef<WishListItem>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(wishList.id)}
             >
               Copy ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => table.options?.meta?.removeItem && table.options?.meta?.removeItem(wishList.id)}>Delete</DropdownMenuItem>
             {/* <DropdownMenuItem>Delete</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -142,9 +151,10 @@ const columns: ColumnDef<WishListItem>[] = [
 
 interface DataTableProps {
   data: WishListItem[];
+  onDelete:any;
 }
 
-export const DataTable: React.FC<DataTableProps> = ({ data}) => {
+export const DataTable: React.FC<DataTableProps> = ({ data, onDelete}) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -164,6 +174,9 @@ export const DataTable: React.FC<DataTableProps> = ({ data}) => {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    meta:{
+      removeItem:onDelete
+    },
     state: {
       sorting,
       columnFilters,
