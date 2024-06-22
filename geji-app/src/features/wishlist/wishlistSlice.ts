@@ -7,28 +7,27 @@ import { RootState } from "@/lib/store"
 const wishlistSlice = createSlice({
 
     name: "wishlist",
-    initialState: [],
-
+    initialState: {values:[]  as WishListItem[]},
     reducers: {
-        initializeWishList: (state:WishList, action:{type:string, payload:WishList}) => {
-           Object.assign(state, action.payload)
+        initializeWishList: (state, action:{type:string, payload:WishList}) => {
+           state.values = action.payload
         },
 
-        addWishList(state: WishList, action:{type:string, payload:WishListItem}) {
-            state.push({
+        addWishList(state, action:{type:string, payload:WishListItem}) {
+            state.values.push({
                 ...action.payload
             })
         },
-        updateWishList(state: WishList, action:{type:string, payload:WishListItem}){
-            state = [...state, action.payload]
+        updateWishList(state, action:{type:string, payload:WishListItem}){
+            state.values = [...state.values, action.payload]
         },
-        deleteWishList(state:WishList, action:{type:string,payload:Pick<WishListItem, 'id'>}) {
-            Object.assign(state, state.filter(s => s.id !== action.payload.id));
+        deleteWishList(state, action:{type:string,payload:Pick<WishListItem, 'id'>}) {
+            state.values = state.values.filter(s => s.id !== action.payload.id);
             // add implementation here
         }
     }
 })
 
 export const {addWishList, deleteWishList, initializeWishList} = wishlistSlice.actions
-export const selectWishList = (state: RootState) => state.wishLists
+export const selectWishList = (state: RootState) => state.wishList.values
 export default wishlistSlice;
