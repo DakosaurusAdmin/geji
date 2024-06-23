@@ -1,10 +1,12 @@
+import notificationSlice from '@/features/notifications/notificationsSlice'
 import wishlistSlice from '@/features/wishlist/wishlistSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      wishList: wishlistSlice.reducer
+      wishList: wishlistSlice.reducer,
+      notifications: notificationSlice.reducer,
     },
   })
 }

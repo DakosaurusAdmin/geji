@@ -70,7 +70,7 @@ export function SignInFormV2() {
     };
 
   return (
-    <div className="flex flex-col gap-4 m-auto">
+    <div className="flex flex-col gap-4 m-auto w-80">
       {error && (
         <Alert variant="destructive" className="flex flex-row">
           <ExclamationTriangleIcon className="h-4 w-4" />
