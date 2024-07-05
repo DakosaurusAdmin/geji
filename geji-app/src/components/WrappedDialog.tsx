@@ -55,7 +55,7 @@ const WrappedDialog:React.FC<WrappedDialogProps> = React.forwardRef(
         </DialogHeader>
         {children}
         <DialogFooter>
-          {saveButtonProps && <Button type="submit" onClick={onSaveBtnClick}>
+          {saveButtonProps && <Button className="gap-2" type="submit" onClick={onSaveBtnClick}>
              {saveBtnIcon && <FontAwesomeIcon icon={saveBtnIcon}></FontAwesomeIcon>}
             {saveBtnTitle}</Button>}
         </DialogFooter>
