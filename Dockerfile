@@ -14,7 +14,6 @@ RUN npm install
 COPY geji-app/. .
 
 # inject secrets
-COPY ["geji-app/.env.local", ".env"]
 
 # Build the Next.js application for production
 RUN npm run build
