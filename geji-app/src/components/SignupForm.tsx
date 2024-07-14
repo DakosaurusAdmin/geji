@@ -14,22 +14,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { Control, FieldPath } from "react-hook-form";
 import { EnumLike, EnumValues, z } from "zod";
-import { Select } from "./ui/select";
-import {
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@radix-ui/react-select";
-
-enum ROLE_TYPES {
-  BUYER = "buyer",
+import { Select,  SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue, } from "./ui/select";
+enum ACCOUNT_TYPES {
+  CUSTOMER = "customer",
   SHOPPER = "shopper",
 }
 const formSchema = z.object({
-  role: z.nativeEnum(ROLE_TYPES),
+  accountType: z.nativeEnum(ACCOUNT_TYPES),
   username: z.string().min(3).max(50),
   email: z.string().email(),
 });
@@ -38,7 +34,7 @@ const SignupForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      role: "buyer",
+      accountType: ACCOUNT_TYPES.CUSTOMER,
       username: "",
       email: "",
     },
@@ -66,15 +62,15 @@ const SignupForm = () => {
           formControl={form.control}
         />
         <SignupFormField
-          name="role"
-          label="Role"
-          placeholder="subscription type"
+          name="accountType"
+          label="Account Type"
+          placeholder="Account type"
           description="Choose from the roles below"
           inputType="select"
-          options={[ROLE_TYPES.BUYER, ROLE_TYPES.SHOPPER]}
+          options={[ACCOUNT_TYPES.CUSTOMER, ACCOUNT_TYPES.SHOPPER]}
           formControl={form.control}
         />
-        <Button type="submit">Signup</Button>
+        <Button type="submit" className="w-full">Signup</Button>
       </form>
     </Form>
   );
@@ -104,37 +100,45 @@ const SignupFormField: React.FC<SignupFormFieldProps> = ({
       control={formControl}
       name={name}
       render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            {inputType !== "select" && 
-              <Input
-                placeholder={placeholder}
-                type={inputType || "text"}
-                {...field}
-              />
-            }
-            {inputType === "select" && (
-              <Select>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>{label}</SelectLabel>
-                    {options?.map((op, idx) => (
-                      <SelectItem key={idx} value={op}>
-                        {op}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
-        </FormItem>
+        <>
+          {inputType === "select" && (
+            <FormItem className="relative flex flex-end gap-10 w-full">
+            <Select {...field}>
+                <FormLabel className="my-auto text-lg">{label}</FormLabel>
+              <SelectTrigger className="w-[280px]">
+                <SelectValue placeholder={placeholder}/>
+              </SelectTrigger>
+              <SelectContent >
+                <SelectGroup>
+                  <SelectLabel className="text-lg">{label}</SelectLabel>
+                  {options?.map((op, idx) => (
+                    <SelectItem key={idx} value={op}>
+                      {op}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            </FormItem>
+          )}
+
+          {inputType !== "select" && (
+            <FormItem className="relative flex flex-end gap-10 w-full">
+              <FormLabel className="my-auto text-lg">{label}:</FormLabel>
+              <FormControl>
+                {inputType !== "select" && (
+                  <Input className="space-y-0 w-80 flex-grow"
+                    placeholder={placeholder}
+                    type={inputType || "text"}
+                    {...field}
+                  />
+                )}
+              </FormControl>
+              {description && <FormDescription className="absolute bottom-0 right-0">{description}</FormDescription>}
+              <FormMessage />
+            </FormItem>
+          )}
+        </>
       )}
     />
   );
