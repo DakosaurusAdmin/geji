@@ -26,6 +26,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          cd geji-app
           docker build -t ${{ secrets.DOCKER_USERNAME }}/my-nextjs-app:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/my-nextjs-app:latest
