@@ -1,28 +1,27 @@
-# Use official Node.js LTS image as the base image
-FROM node:lts-alpine
-
-# Set the working directory in the container
+# Install dependencies only when needed
+FROM node:18-alpine AS deps
 WORKDIR /app
+COPY geji-app/package.json geji-app/package-lock.json ./
+RUN npm ci
 
-# Copy package.json and package-lock.json to the working directory
-COPY geji-app/package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code to the working directory
-COPY geji-app/. .
-
-# inject secrets
-COPY ["geji-app/.env.local", ".env"]
-
-# Build the Next.js application for production
+# Rebuild the source code only when needed
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY geji-app ./
+COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
 
-# Expose the port Next.js runs on (usually 3000)
+# Production image, copy all the files and run next
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
 EXPOSE 3000
 
-# Set the command to run the Next.js application
 CMD ["npm", "start"]
-
-# docker build -t nextjs-app .
