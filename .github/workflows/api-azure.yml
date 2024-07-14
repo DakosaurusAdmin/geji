@@ -3,7 +3,7 @@ name: Deploy .NET 8 App to Azure Container App
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   build:
