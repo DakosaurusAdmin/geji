@@ -40,7 +40,7 @@ const providers = [
   }),
   GoogleProvider({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID || "",
-    clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET || ""
+    clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET || "",
   }),
   
 
@@ -53,7 +53,8 @@ const options:AuthOptions = {
    },
    pages:{
      signIn:'/signIn',
-     signOut:'/signOut'
+     signOut:'/signOut',
+     newUser:'/signUp'
    }
 }
 

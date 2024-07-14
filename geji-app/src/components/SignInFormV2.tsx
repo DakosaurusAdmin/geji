@@ -20,12 +20,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { login } from "@/lib/auth";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { providerMap } from "@/pages/api/auth/[...nextauth]";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignIn } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faSignIn } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   username: z
@@ -47,6 +48,15 @@ const formSchema = z.object({
 export function SignInFormV2() {
   const router = useRouter();
   const [error, setError] = useState<string>("");
+
+  const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    if (session) {
+      setIsOpen(false);
+    }
+  }, [setIsOpen, session]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,83 +80,107 @@ export function SignInFormV2() {
     };
 
   return (
-    <div className="flex flex-col gap-4 m-auto w-80">
-      {error && (
-        <Alert variant="destructive" className="flex flex-row">
-          <ExclamationTriangleIcon className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-      {providerMap.map((p) => (
-        <div key={p.id}>
-          {p.id === "credentials" && (
-            <Form key={p.id} {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit(p.id))}
-                className="space-y-8"
-              >
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username:</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="username" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password:</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="password"
-                          type="password"
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <Button className="w-full gap-2" type="submit">
-                  <FontAwesomeIcon icon={faSignIn} />
-                  <span>{`Sign in with ${p.id}`}</span>
-                </Button>
-                <div className="w-full border-b-gray-300 " />
-              </form>
-            </Form>
-          )}
+    <dialog id="signInModal" className="modal" open={isOpen}>
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+      <div className="modal-box w-11/12">
+        <form
+          method="dialog"
+          className="flex"
+          onSubmit={() => {
+            router.push("./");
+          }}
+        >
+          <button className="btn btn-circle m-auto mr-0">
+            <FontAwesomeIcon icon={faClose} />
+          </button>
+        </form>
+        <h3 className="font-bold text-lg text-center">Sign In!</h3>
 
-          {p.id !== "credentials" && (
-            <Button
-              className="w-full gap-2"
-              variant={"outline"}
-              type="button"
-              onClick={async (e) => {
-                  e.preventDefault(); 
-                  await onSubmit(p.id)({username:"", password:""});
-                }}
-            >
-              <Image
-                loading="lazy"
-                height="24"
-                width={24}
-                id="provider-logo"
-                src={`https://authjs.dev/img/providers/${p.id}.svg`}
-                alt={`${p.id} SignIn`}
-              />
-              <span>{`Sign in with ${p.id}`}</span>
-            </Button>
-          )}
+        <div className="modal-action">
+          <div className="flex flex-col gap-4 m-auto w-80">
+            {error && (
+              <Alert variant="destructive" className="flex flex-row">
+                <ExclamationTriangleIcon className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            {providerMap.map((p) => (
+              <div key={p.id}>
+                {p.id === "credentials" && (
+                  <Form key={p.id} {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit(p.id))}
+                      className="space-y-8"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="username"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Username:</FormLabel>
+                            <FormControl>
+                              <Input {...field} placeholder="username" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Password:</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="password"
+                                type="password"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                      <Button className="w-full gap-2" type="submit">
+                        <FontAwesomeIcon icon={faSignIn} />
+                        <span>{`Sign in with ${p.id}`}</span>
+                      </Button>
+                      <div className="w-full border-b-gray-300 " />
+                    </form>
+                  </Form>
+                )}
+
+                {p.id !== "credentials" && (
+                  <Button
+                    className="w-full gap-2"
+                    variant={"outline"}
+                    type="button"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await onSubmit(p.id)({ username: "", password: "" });
+                    }}
+                  >
+                    <Image
+                      loading="lazy"
+                      height="24"
+                      width={24}
+                      id="provider-logo"
+                      src={`https://authjs.dev/img/providers/${p.id}.svg`}
+                      alt={`${p.id} SignIn`}
+                    />
+                    <span>{`Sign in with ${p.id}`}</span>
+                  </Button>
+                )}
+
+               
+              </div>
+            ))}
+
+            <Button onClick={()=> router.push('./signUp')}> sign up</Button>
+          </div>
         </div>
-      ))}
-    </div>
+      </div>
+    </dialog>
   );
 }
