@@ -25,9 +25,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./backend-api
+          context: ./geji-backend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/backend-api:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/geji-backend:latest
 
   deploy:
     needs: build
@@ -44,4 +44,4 @@ jobs:
           az containerapp update \
             --name geji-backend-web-app \
             --resource-group geji-resource-group \
-            --image ${{ secrets.DOCKER_USERNAME }}/backend-api:latest
+            --image ${{ secrets.DOCKER_USERNAME }}/geji-backend:latest
